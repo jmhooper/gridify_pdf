@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'tempfile'
+
+require_relative '../lib/gridify_pdf'
+
+options = GridifyPdf::Options.build_options_with_defaults
+
+OptionParser.new do |opts|
+  opts.banner = <<~BANNER
+    Usage: gridify_pdf [input_file] [output_file] [options]"
+
+    If no input file is provided input is read from STDIN.
+    If no output file is provide output is written to STDOUT.
+  BANNER
+
+  opts.on('--cell-width=CELL_WIDTH', 'Specify the cell width for the overlay grid') do |cell_width|
+    options.cell_width = cell_width.to_i
+  end
+
+  opts.on('--open', 'Open the overlay PDF once done') do
+    options.open_after_gridification = true
+  end
+
+  opts.on('-h', '--help', 'Print this help') do
+    puts opts
+    exit
+  end
+end.parse!
+
+if ARGV[0]
+  options.input = File.open(ARGV[0], 'r')
+end
+
+if ARGV[1]
+  options.output = File.open(ARGV[1], 'w+')
+elsif options.open_after_gridification
+  require 'securerandom'
+  tmp_file_path = File.join('/tmp', "gridified_pdf_#{SecureRandom.alphanumeric(24)}.pdf")
+  options.output = File.open(tmp_file_path, 'w+')
+end
+
+result = GridifyPdf::Gridifier.new(
+  options.input.read,
+  cell_width: options.cell_width,
+).gridify
+options.output.write(result)
+
+if options.open_after_gridification
+  case RUBY_PLATFORM
+  when /darwin/
+    # macOS
+    system("open", options.output.path)
+  when /linux/
+    # Linux
+    system("xdg-open", options.output.path)
+  when /win32|mingw32|cygwin/
+    # Windows
+    system("start", options.output.path)
+  else
+    raise "Unsupported platform: #{RUBY_PLATFORM}"
+  end
+end
+
+options.input.close unless options.input == STDIN
+options.output.close unless options.output == STDOUT

@@ -1,0 +1,47 @@
+PATH
+  remote: .
+  specs:
+    gridify_pdf (0.1.0)
+      combine_pdf (~> 1.0.0)
+      prawn (~> 2.5.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bigdecimal (3.1.8)
+    combine_pdf (1.0.26)
+      matrix
+      ruby-rc4 (>= 0.1.5)
+    diff-lcs (1.5.1)
+    matrix (0.4.2)
+    pdf-core (0.10.0)
+    prawn (2.5.0)
+      matrix (~> 0.4)
+      pdf-core (~> 0.10.0)
+      ttfunk (~> 1.8)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.1)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.1)
+    ruby-rc4 (0.1.5)
+    ttfunk (1.8.0)
+      bigdecimal (~> 3.1)
+
+PLATFORMS
+  arm64-darwin-20
+
+DEPENDENCIES
+  gridify_pdf!
+  rspec (~> 3.0)
+
+BUNDLED WITH
+   2.4.5
