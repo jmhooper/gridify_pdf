@@ -12,9 +12,9 @@ Gem::Specification.new do |spec|
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
 
-  spec.homepage = "https://gihub.com/jmhooper/gridify_pdf"
+  spec.homepage = "https://github.com/jmhooper/gridify_pdf"
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://gihub.com/jmhooper/gridify_pdf"
+  spec.metadata["source_code_uri"] = "https://github.com/jmhooper/gridify_pdf"
 
   spec.files = Dir.chdir(__dir__) do
     `git ls-files -z`.split("\x0").reject do |f|
